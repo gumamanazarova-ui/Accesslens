@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AccessLens — Place Accessibility Directory</title>
+  <meta name="description" content="AccessLens: a community-maintained directory of local place accessibility features. UNKNOWN is different from NO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       ACCESSLENS — WARM COMMUNITY DIRECTORY
+       Visual Persona: Friendly, human-scale, warm earth tones.
+       Completely distinct from any other project in this sprint.
+       ============================================================ */
+    :root {
+      /* Palette: deep teal + warm cream + amber */
+      --teal-dark:   #0b5f66;
+      --teal:        #0d7377;
+      --teal-mid:    #14a0a7;
+      --teal-light:  #d4f0f2;
+      --teal-faint:  #eef8f9;
+
+      --amber:       #d97706;
+      --amber-light: #fef3c7;
+      --amber-border:#fcd34d;
+
+      --cream:       #fdf8f2;
+      --cream-card:  #ffffff;
+      --warm-border: #e8e0d5;
+      --warm-border-strong: #c9bfb2;
+
+      --ink:         #1c1917;
+      --ink-mid:     #44403c;
+      --ink-soft:    #78716c;
+      --ink-faint:   #a8a29e;
+
+      /* Status colours — gentler, warmer than the old version */
+      --ok-bg:       #d1fae5;
+      --ok-fg:       #065f46;
+      --ok-dot:      #10b981;
+
+      --no-bg:       #fee2e2;
+      --no-fg:       #991b1b;
+      --no-dot:      #ef4444;
+
+      --unk-bg:      #fef9c3;
+      --unk-fg:      #854d0e;
+      --unk-dot:     #f59e0b;
+
+      --stale-bg:    #ffedd5;
+      --stale-fg:    #9a3412;
+
+      --radius-sm:   8px;
+      --radius-md:   14px;
+      --radius-lg:   20px;
+      --radius-pill: 999px;
+
+      --shadow-card: 0 2px 12px rgba(13,115,119,0.08), 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-hover: 0 6px 24px rgba(13,115,119,0.14), 0 2px 8px rgba(0,0,0,0.08);
+
+      --font-head: 'Nunito', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --teal-dark:   #5eead4;
+      --teal:        #2dd4bf;
+      --teal-mid:    #5eead4;
+      --teal-light:  #134e4a;
+      --teal-faint:  #0f3d3a;
+
+      --amber:       #fbbf24;
+      --amber-light: #292007;
+      --amber-border:#78350f;
+
+      --cream:       #111827;
+      --cream-card:  #1f2937;
+      --warm-border: #374151;
+      --warm-border-strong: #4b5563;
+
+      --ink:         #f9fafb;
+      --ink-mid:     #e5e7eb;
+      --ink-soft:    #9ca3af;
+      --ink-faint:   #6b7280;
+
+      --ok-bg:       #064e3b;
+      --ok-fg:       #6ee7b7;
+      --ok-dot:      #34d399;
+
+      --no-bg:       #7f1d1d;
+      --no-fg:       #fca5a5;
+      --no-dot:      #f87171;
+
+      --unk-bg:      #451a03;
+      --unk-fg:      #fcd34d;
+      --unk-dot:     #f59e0b;
+
+      --stale-bg:    #431407;
+      --stale-fg:    #fdba74;
+
+      --shadow-card: 0 2px 12px rgba(0,0,0,0.3);
+      --shadow-hover: 0 6px 24px rgba(0,0,0,0.4);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.55;
+      font-size: 15px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -48px;
+      left: 12px;
+      background: var(--teal);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      text-decoration: none;
+      z-index: 999;
+    }
+    .skip-link:focus { top: 12px; }
+
+    /* ---- SITE HEADER ---- */
+    .site-header {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal-mid) 100%);
+      color: #fff;
+      padding: 0;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 24px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(255,255,255,0.18);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      line-height: 1.1;
+    }
+
+    .brand-text p {
+      font-size: 12px;
+      opacity: 0.78;
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ---- BUTTONS ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      background: transparent;
+      color: inherit;
+      text-decoration: none;
+      line-height: 1.2;
+      white-space: nowrap;
+      transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+    }
+
+    .btn:active { transform: scale(0.97); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .btn-primary {
+      background: #fff;
+      color: var(--teal-dark);
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      background: rgba(255,255,255,0.28);
+    }
+
+    .btn-outline {
+      background: var(--cream-card);
+      color: var(--ink-mid);
+      border-color: var(--warm-border);
+    }
+
+    .btn-outline:hover:not(:disabled) {
+      background: var(--teal-faint);
+      border-color: var(--teal-mid);
+      color: var(--teal-dark);
+    }
+
+    .btn-sm {
+      padding: 5px 13px;
+      font-size: 13px;
+    }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.3);
+    }
+
+    .btn-icon:hover {
+      background: rgba(255,255,255,0.28);
+    }
+
+    .btn-danger {
+      color: var(--no-fg);
+      background: var(--no-bg);
+      border-color: var(--no-dot);
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      filter: brightness(0.92);
+    }
+
+    /* ---- LAYOUT ---- */
+    .page-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 28px 24px 60px;
+      flex: 1;
+    }
+
+    /* ---- STATS ROW ---- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 700px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    .stat-card {
+      background: var(--cream-card);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .stat-value {
+      font-family: var(--font-head);
+      font-size: 30px;
+      font-weight: 900;
+      color: var(--teal-dark);
+      line-height: 1;
+    }
+
+    [data-theme="dark"] .stat-value { color: var(--teal-mid); }
+
+    /* ---- SEARCH / FILTER PANEL ---- */
+    .filter-panel {
+      background: var(--cream-card);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+    }
+
+    .filter-top {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .search-wrap {
+      flex: 1 1 260px;
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 15px;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .input-field, .select-field {
+      font-family: var(--font-body);
+      background: var(--cream);
+      border: 1.5px solid var(--warm-border);
+      color: var(--ink);
+      padding: 9px 12px;
+      font-size: 14px;
+      border-radius: var(--radius-sm);
+      width: 100%;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .input-field:focus, .select-field:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(13,115,119,0.12);
+      outline: none;
+    }
+
+    .input-field.with-icon {
+      padding-left: 36px;
+    }
+
+    .select-field {
+      cursor: pointer;
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .chip-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-right: 2px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 13px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      border: 1.5px solid var(--warm-border);
+      background: var(--cream);
+      color: var(--ink-mid);
+      transition: all 0.15s;
+    }
+
+    .chip:hover {
+      border-color: var(--teal-mid);
+      background: var(--teal-faint);
+      color: var(--teal-dark);
+    }
+
+    .chip.active {
+      background: var(--teal);
+      color: #fff;
+      border-color: var(--teal);
+    }
+
+    [data-theme="dark"] .chip.active {
+      background: var(--teal-dark);
+      color: var(--ink);
+    }
+
+    /* ---- DIRECTORY HEADER ---- */
+    .dir-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      gap: 8px;
+    }
+
+    .dir-title {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .dir-count {
+      font-size: 13px;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    /* ---- PLACE CARDS ---- */
+    .places-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 480px) {
+      .places-grid { grid-template-columns: 1fr; }
+    }
+
+    .place-card {
+      background: var(--cream-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.15s;
+    }
+
+    .place-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-head {
+      padding: 18px 18px 14px;
+      border-bottom: 1.5px solid var(--warm-border);
+    }
+
+    .card-top-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    [data-theme="dark"] .type-badge {
+      background: var(--teal-faint);
+      color: var(--teal-mid);
+    }
+
+    .demo-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      border: 1.5px dashed var(--ink-faint);
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .card-name {
+      font-family: var(--font-head);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 3px;
+    }
+
+    .card-address {
+      font-size: 13px;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ---- FEATURE ROWS ---- */
+    .features-list {
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-bottom: 1.5px solid var(--warm-border);
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .feature-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .feature-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+    }
+
+    .status-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-pill.status-present {
+      background: var(--ok-bg);
+      color: var(--ok-fg);
+    }
+    .status-pill.status-present .dot { background: var(--ok-dot); }
+
+    .status-pill.status-not_present {
+      background: var(--no-bg);
+      color: var(--no-fg);
+    }
+    .status-pill.status-not_present .dot { background: var(--no-dot); }
+
+    .status-pill.status-unknown {
+      background: var(--unk-bg);
+      color: var(--unk-fg);
+    }
+    .status-pill.status-unknown .dot { background: var(--unk-dot); }
+
+    .feature-detail {
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin-top: 3px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ---- CARD NOTES ---- */
+    .card-notes {
+      padding: 10px 18px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      border-bottom: 1.5px solid var(--warm-border);
+      background: var(--teal-faint);
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    [data-theme="dark"] .card-notes {
+      background: var(--teal-faint);
+    }
+
+    /* ---- CARD FOOTER ---- */
+    .card-footer {
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-source {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-mid);
+    }
+
+    .meta-date {
+      font-size: 12px;
+      color: var(--ink-faint);
+    }
+
+    .stale-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--stale-bg);
+      color: var(--stale-fg);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ---- EMPTY STATE ---- */
+    .empty-state {
+      background: var(--cream-card);
+      border-radius: var(--radius-lg);
+      border: 2px dashed var(--warm-border);
+      text-align: center;
+      padding: 56px 24px;
+      grid-column: 1 / -1;
+    }
+
+    .empty-state .empty-emoji {
+      font-size: 40px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .empty-state h3 {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      color: var(--ink-soft);
+      margin-bottom: 20px;
+    }
+
+    /* ---- MODAL ---- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-box {
+      background: var(--cream-card);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      width: 100%;
+      max-width: 620px;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 20px 22px 16px;
+      border-bottom: 1.5px solid var(--warm-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal-mid) 100%);
+      color: #fff;
+    }
+
+    .modal-header h2 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .modal-body {
+      padding: 20px 22px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-footer {
+      padding: 14px 22px;
+      border-top: 1.5px solid var(--warm-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--cream);
+    }
+
+    /* ---- FORM ELEMENTS ---- */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-mid);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 500px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-row-half {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 500px) {
+      .form-row-half { grid-template-columns: 1fr; }
+    }
+
+    .feature-fieldset {
+      border: 1.5px solid var(--warm-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px 12px;
+      background: var(--cream);
+    }
+
+    .feature-fieldset legend {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--teal-dark);
+      padding: 0 6px;
+      font-family: var(--font-head);
+    }
+
+    [data-theme="dark"] .feature-fieldset legend {
+      color: var(--teal-mid);
+    }
+
+    .radio-strip {
+      display: flex;
+      gap: 14px;
+      margin: 8px 0 10px;
+      flex-wrap: wrap;
+    }
+
+    .radio-cell {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--ink-mid);
+    }
+
+    .radio-cell input[type="radio"] {
+      accent-color: var(--teal);
+      width: 15px;
+      height: 15px;
+    }
+
+    .error-box {
+      background: var(--no-bg);
+      border: 1.5px solid var(--no-dot);
+      color: var(--no-fg);
+      padding: 10px 14px;
+      font-size: 13px;
+      border-radius: var(--radius-sm);
+      display: none;
+      line-height: 1.5;
+    }
+
+    .error-box.visible { display: block; }
+
+    /* ---- DATA MODAL special ---- */
+    .data-info-box {
+      background: var(--teal-faint);
+      border: 1.5px solid var(--teal-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--teal-dark);
+      line-height: 1.5;
+    }
+
+    [data-theme="dark"] .data-info-box {
+      background: var(--teal-faint);
+      border-color: var(--teal-dark);
+      color: var(--teal-mid);
+    }
+
+    .data-action-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .data-danger-row {
+      padding-top: 14px;
+      border-top: 1.5px solid var(--warm-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ---- FOOTER ---- */
+    .site-footer {
+      border-top: 1.5px solid var(--warm-border);
+      padding: 16px 24px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--ink-faint);
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <a href="#mainContent" class="skip-link">Skip to directory</a>
+
+  <!-- ======= SITE HEADER ======= -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">🔍</div>
+        <div class="brand-text">
+          <h1>AccessLens</h1>
+          <p>Community Accessibility Directory · Unknown ≠ Not Present</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button type="button" class="btn btn-primary" id="btnOpenAddPlace" aria-haspopup="dialog">
+          + Add Place
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" id="btnOpenDataModal" aria-haspopup="dialog">
+          💾 Data
+        </button>
+        <button type="button" class="btn btn-icon" id="btnThemeToggle" aria-label="Toggle colour theme" title="Toggle theme">
+          🌓
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======= MAIN ======= -->
+  <main class="page-body" id="mainContent">
+
+    <!-- Stats Row -->
+    <section class="stats-row" aria-label="Directory statistics">
+      <div class="stat-card">
+        <span class="stat-label">Places</span>
+        <span class="stat-value" id="metricTotalPlaces">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Has Unknowns</span>
+        <span class="stat-value" id="metricUnknownCount">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Stale &gt;180d</span>
+        <span class="stat-value" id="metricStaleCount">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">First-Hand</span>
+        <span class="stat-value" id="metricFirstHandCount">0</span>
+      </div>
+    </section>
+
+    <!-- Filter Panel -->
+    <section class="filter-panel" aria-label="Filters">
+      <div class="filter-top">
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">🔎</span>
+          <input type="search" id="filterSearch" class="input-field with-icon"
+            placeholder="Search places, features, notes…" autocomplete="off">
+        </div>
+
+        <select id="filterType" class="select-field" style="min-width:130px;" aria-label="Filter by type">
+          <option value="all">Type: All</option>
+          <option value="Library">Library</option>
+          <option value="Cafe &amp; Bakery">Cafe &amp; Bakery</option>
+          <option value="Community Center">Community Center</option>
+          <option value="Health Clinic">Health Clinic</option>
+          <option value="Grocery &amp; Market">Grocery &amp; Market</option>
+          <option value="Civic &amp; Government">Civic &amp; Government</option>
+          <option value="Theater / Arts">Theater / Arts</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <select id="filterStepFree" class="select-field" style="min-width:140px;" aria-label="Filter step-free entrance">
+          <option value="all">Entrance: Any</option>
+          <option value="present">✓ Present</option>
+          <option value="not_present">✕ Not Present</option>
+          <option value="unknown">? Unknown</option>
+        </select>
+
+        <select id="filterToilet" class="select-field" style="min-width:130px;" aria-label="Filter accessible toilet">
+          <option value="all">Toilet: Any</option>
+          <option value="present">✓ Present</option>
+          <option value="not_present">✕ Not Present</option>
+          <option value="unknown">? Unknown</option>
+        </select>
+
+        <select id="filterSeating" class="select-field" style="min-width:130px;" aria-label="Filter accessible seating">
+          <option value="all">Seating: Any</option>
+          <option value="present">✓ Present</option>
+          <option value="not_present">✕ Not Present</option>
+          <option value="unknown">? Unknown</option>
+        </select>
+
+        <button type="button" class="btn btn-outline btn-sm" id="btnResetFilters">Reset</button>
+      </div>
+
+      <div class="filter-chips" role="region" aria-label="Filter shortcuts">
+        <span class="chip-label">Quick:</span>
+        <button type="button" class="chip" id="shortcutNeedsSurvey">❓ Needs Survey</button>
+        <button type="button" class="chip" id="shortcutStale">⏳ Stale Data</button>
+        <button type="button" class="chip" id="shortcutFirstHand">👁 First-Hand</button>
+        <button type="button" class="chip" id="shortcutAllPresent">✨ All Present</button>
+      </div>
+    </section>
+
+    <!-- Directory -->
+    <section aria-labelledby="directoryHeading">
+      <div class="dir-header">
+        <h2 id="directoryHeading" class="dir-title">Place Records</h2>
+        <span class="dir-count" id="directoryResultsCount">Showing 0 places</span>
+      </div>
+
+      <div class="places-grid" id="placesGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="empty-state hidden" id="emptyStateBox">
+        <span class="empty-emoji" aria-hidden="true">🗂️</span>
+        <h3>No matching places</h3>
+        <p>Try adjusting the filters, or add the first record.</p>
+        <button type="button" class="btn btn-outline" id="btnEmptyAdd" style="margin: 0 auto;">
+          + Add Place
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======= MODAL: ADD / EDIT PLACE ======= -->
+  <div class="modal-overlay" id="modalPlaceForm" role="dialog" aria-modal="true" aria-labelledby="modalPlaceTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modalPlaceTitle">Record Place</h2>
+        <button type="button" class="btn btn-ghost btn-sm" id="btnClosePlaceModal" aria-label="Close dialog">✕</button>
+      </div>
+
+      <form id="formPlace" novalidate>
+        <input type="hidden" id="placeEditId" value="">
+
+        <div class="modal-body">
+          <div class="error-box" id="placeFormErrors" role="alert"></div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="placeName">Place Name *</label>
+              <input type="text" id="placeName" class="input-field" placeholder="e.g. Elm Street Library" required>
+            </div>
+            <div class="form-group">
+              <label for="placeType">Type *</label>
+              <select id="placeType" class="select-field" required>
+                <option value="">Select…</option>
+                <option value="Library">Library</option>
+                <option value="Cafe &amp; Bakery">Cafe &amp; Bakery</option>
+                <option value="Community Center">Community Center</option>
+                <option value="Health Clinic">Health Clinic</option>
+                <option value="Grocery &amp; Market">Grocery &amp; Market</option>
+                <option value="Civic &amp; Government">Civic &amp; Government</option>
+                <option value="Theater / Arts">Theater / Arts</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="placeAddress">Address / Location *</label>
+            <input type="text" id="placeAddress" class="input-field" placeholder="Street address or cross street" required>
+          </div>
+
+          <!-- Step-Free Entrance -->
+          <fieldset class="feature-fieldset">
+            <legend>♿ Step-Free Entrance</legend>
+            <div class="radio-strip">
+              <label class="radio-cell"><input type="radio" name="featureStepFree" value="present"> ✓ Present</label>
+              <label class="radio-cell"><input type="radio" name="featureStepFree" value="not_present"> ✕ Not Present</label>
+              <label class="radio-cell"><input type="radio" name="featureStepFree" value="unknown" checked> ? Unknown</label>
+            </div>
+            <input type="text" id="stepFreeDetails" class="input-field" placeholder="Details (ramp, auto door, threshold…)">
+          </fieldset>
+
+          <!-- Accessible Toilet -->
+          <fieldset class="feature-fieldset">
+            <legend>🚻 Accessible Toilet</legend>
+            <div class="radio-strip">
+              <label class="radio-cell"><input type="radio" name="featureToilet" value="present"> ✓ Present</label>
+              <label class="radio-cell"><input type="radio" name="featureToilet" value="not_present"> ✕ Not Present</label>
+              <label class="radio-cell"><input type="radio" name="featureToilet" value="unknown" checked> ? Unknown</label>
+            </div>
+            <input type="text" id="toiletDetails" class="input-field" placeholder="Details (grab bars, clearance, floor level…)">
+          </fieldset>
+
+          <!-- Accessible Seating -->
+          <fieldset class="feature-fieldset">
+            <legend>🪑 Accessible Seating</legend>
+            <div class="radio-strip">
+              <label class="radio-cell"><input type="radio" name="featureSeating" value="present"> ✓ Present</label>
+              <label class="radio-cell"><input type="radio" name="featureSeating" value="not_present"> ✕ Not Present</label>
+              <label class="radio-cell"><input type="radio" name="featureSeating" value="unknown" checked> ? Unknown</label>
+            </div>
+            <input type="text" id="seatingDetails" class="input-field" placeholder="Details (table height, aisle width, movable chairs…)">
+          </fieldset>
+
+          <div class="form-group">
+            <label for="placeNotes">General Notes</label>
+            <input type="text" id="placeNotes" class="input-field" placeholder="Lighting, acoustics, parking, staff assistance…">
+          </div>
+
+          <div class="form-row-half">
+            <div class="form-group">
+              <label for="placeSource">Source *</label>
+              <select id="placeSource" class="select-field" required>
+                <option value="First-hand observation">First-hand observation</option>
+                <option value="Staff-reported">Staff-reported</option>
+                <option value="Unverified">Unverified</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="placeLastChecked">Last Checked *</label>
+              <div style="display:flex;gap:6px;">
+                <input type="date" id="placeLastChecked" class="input-field" style="flex:1;" required>
+                <button type="button" class="btn btn-outline btn-sm" id="btnSetDateToday">Today</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="placeSourceDetail">Observer Detail</label>
+            <input type="text" id="placeSourceDetail" class="input-field" placeholder="Optional context (e.g. volunteer using wheelchair)">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="btnCancelPlaceForm">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnSavePlace" style="background:var(--teal);color:#fff;border-color:var(--teal);">
+            Save Record
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======= MODAL: DATA & STORAGE ======= -->
+  <div class="modal-overlay" id="modalDataStorage" role="dialog" aria-modal="true" aria-labelledby="modalDataTitle">
+    <div class="modal-box" style="max-width:460px;">
+      <div class="modal-header">
+        <h2 id="modalDataTitle">Data &amp; Storage</h2>
+        <button type="button" class="btn btn-ghost btn-sm" id="btnCloseDataModal" aria-label="Close dialog">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="data-info-box">
+          Data is saved in your browser's <strong>localStorage</strong>. Nothing is sent to any server. Each device stores its own copy.
+        </div>
+
+        <div class="data-action-row">
+          <button type="button" class="btn btn-outline" id="btnExportJson">⬇ Export JSON</button>
+          <label class="btn btn-outline" style="cursor:pointer;">
+            ⬆ Import JSON
+            <input type="file" id="inputImportJson" accept=".json" style="display:none;">
+          </label>
+        </div>
+
+        <div class="data-danger-row">
+          <button type="button" class="btn btn-outline btn-sm" id="btnResetDemoData">Reset Demo Data</button>
+          <button type="button" class="btn btn-danger btn-sm" id="btnClearAllRecords">Clear All</button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div></div>
+        <button type="button" class="btn btn-outline" id="btnCloseDataFooter">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="site-footer" role="contentinfo">
+    AccessLens · Data lives locally in this browser · Unknown ≠ Not Present · Staleness threshold: 180 days
+  </footer>
+
+  <!-- ======= SCRIPT ======= -->
+  <script>
+    (function () {
+      'use strict';
+
+      const CONFIG = {
+        storageKey: 'accesslens_places_v1',
+        themeKey: 'accesslens_theme_v1',
+        staleThresholdDays: 180,
+        defaultDemoPlaces: [
+          {
+            id: 'AL-101',
+            isDemo: true,
+            name: 'Demo Elm Street Community Library',
+            type: 'Library',
+            address: '142 Elm St, Suite A (Cross street: 4th Ave)',
+            features: {
+              stepFreeEntrance: {
+                status: 'present',
+                details: 'Ramped side entrance with automatic push button; main entrance has 4 stone steps.'
+              },
+              accessibleToilet: {
+                status: 'present',
+                details: 'Ground-floor single stall, grab bars, 36-inch clearance.'
+              },
+              accessibleSeating: {
+                status: 'present',
+                details: 'Wheelchair-height tables with movable chairs.'
+              }
+            },
+            notes: 'Quiet study hours Tue 2-4 PM. Wide stacks.',
+            lastCheckedDate: new Date(Date.now() - 86400000 * 25).toISOString().slice(0, 10),
+            source: 'First-hand observation',
+            sourceDetail: 'Surveyed by volunteer with manual wheelchair',
+            createdAt: new Date(Date.now() - 86400000 * 25).toISOString(),
+            updatedAt: new Date(Date.now() - 86400000 * 25).toISOString()
+          },
+          {
+            id: 'AL-102',
+            isDemo: true,
+            name: 'Demo Maple Cafe & Bakery',
+            type: 'Cafe & Bakery',
+            address: '88 Maple Ave (Near Metro Bus Stop #12)',
+            features: {
+              stepFreeEntrance: {
+                status: 'present',
+                details: 'Level threshold, no steps or ramp required.'
+              },
+              accessibleToilet: {
+                status: 'not_present',
+                details: 'Located down 8 stairs in basement; no elevator.'
+              },
+              accessibleSeating: {
+                status: 'present',
+                details: 'Low window bistro tables with movable chairs.'
+              }
+            },
+            notes: 'Patio seating has level brick pavers.',
+            lastCheckedDate: new Date(Date.now() - 86400000 * 45).toISOString().slice(0, 10),
+            source: 'Staff-reported',
+            sourceDetail: 'Confirmed by shift supervisor',
+            createdAt: new Date(Date.now() - 86400000 * 45).toISOString(),
+            updatedAt: new Date(Date.now() - 86400000 * 45).toISOString()
+          },
+          {
+            id: 'AL-103',
+            isDemo: true,
+            name: 'Demo Northside Neighborhood Health Clinic',
+            type: 'Health Clinic',
+            address: '305 Oak Blvd, 2nd Floor (Medical Pavilion West)',
+            features: {
+              stepFreeEntrance: {
+                status: 'present',
+                details: 'Automatic sliding doors and elevator to 2nd floor.'
+              },
+              accessibleToilet: {
+                status: 'unknown',
+                details: 'Restroom locked for maintenance during survey; unverified.'
+              },
+              accessibleSeating: {
+                status: 'unknown',
+                details: 'Waiting room crowded; wheelchair spots unconfirmed.'
+              }
+            },
+            notes: 'Elevator has braille buttons and chime.',
+            lastCheckedDate: new Date(Date.now() - 86400000 * 210).toISOString().slice(0, 10),
+            source: 'Unverified',
+            sourceDetail: 'Left on drop-in board without observer contact',
+            createdAt: new Date(Date.now() - 86400000 * 210).toISOString(),
+            updatedAt: new Date(Date.now() - 86400000 * 210).toISOString()
+          },
+          {
+            id: 'AL-104',
+            isDemo: true,
+            name: 'Demo Historic Beacon Cinema',
+            type: 'Theater / Arts',
+            address: '12 Harbor Way (Historic District)',
+            features: {
+              stepFreeEntrance: {
+                status: 'not_present',
+                details: '5 exterior stone steps; portable ramp on telephone request only.'
+              },
+              accessibleToilet: {
+                status: 'unknown',
+                details: 'Observer could not enter lobby due to steps.'
+              },
+              accessibleSeating: {
+                status: 'not_present',
+                details: 'Sloped stadium seating rows with step access only.'
+              }
+            },
+            notes: 'Physical barriers prevent independent entry.',
+            lastCheckedDate: new Date(Date.now() - 86400000 * 60).toISOString().slice(0, 10),
+            source: 'First-hand observation',
+            sourceDetail: 'Inspected exterior stairs and lack of fixed ramp',
+            createdAt: new Date(Date.now() - 86400000 * 60).toISOString(),
+            updatedAt: new Date(Date.now() - 86400000 * 60).toISOString()
+          }
+        ]
+      };
+
+      let state = {
+        places: [],
+        filters: {
+          search: '',
+          type: 'all',
+          stepFree: 'all',
+          toilet: 'all',
+          seating: 'all',
+          shortcut: null
+        }
+      };
+
+      const DOM = {
+        metricTotalPlaces: document.getElementById('metricTotalPlaces'),
+        metricUnknownCount: document.getElementById('metricUnknownCount'),
+        metricStaleCount: document.getElementById('metricStaleCount'),
+        metricFirstHandCount: document.getElementById('metricFirstHandCount'),
+
+        filterSearch: document.getElementById('filterSearch'),
+        filterType: document.getElementById('filterType'),
+        filterStepFree: document.getElementById('filterStepFree'),
+        filterToilet: document.getElementById('filterToilet'),
+        filterSeating: document.getElementById('filterSeating'),
+        btnResetFilters: document.getElementById('btnResetFilters'),
+
+        shortcutNeedsSurvey: document.getElementById('shortcutNeedsSurvey'),
+        shortcutStale: document.getElementById('shortcutStale'),
+        shortcutFirstHand: document.getElementById('shortcutFirstHand'),
+        shortcutAllPresent: document.getElementById('shortcutAllPresent'),
+
+        directoryHeading: document.getElementById('directoryHeading'),
+        directoryResultsCount: document.getElementById('directoryResultsCount'),
+        placesGrid: document.getElementById('placesGrid'),
+        emptyStateBox: document.getElementById('emptyStateBox'),
+        btnEmptyAdd: document.getElementById('btnEmptyAdd'),
+
+        btnOpenAddPlace: document.getElementById('btnOpenAddPlace'),
+        btnOpenDataModal: document.getElementById('btnOpenDataModal'),
+        btnThemeToggle: document.getElementById('btnThemeToggle'),
+
+        modalPlaceForm: document.getElementById('modalPlaceForm'),
+        modalPlaceTitle: document.getElementById('modalPlaceTitle'),
+        btnClosePlaceModal: document.getElementById('btnClosePlaceModal'),
+        btnCancelPlaceForm: document.getElementById('btnCancelPlaceForm'),
+        formPlace: document.getElementById('formPlace'),
+        placeEditId: document.getElementById('placeEditId'),
+        placeFormErrors: document.getElementById('placeFormErrors'),
+        placeName: document.getElementById('placeName'),
+        placeType: document.getElementById('placeType'),
+        placeAddress: document.getElementById('placeAddress'),
+        stepFreeDetails: document.getElementById('stepFreeDetails'),
+        toiletDetails: document.getElementById('toiletDetails'),
+        seatingDetails: document.getElementById('seatingDetails'),
+        placeNotes: document.getElementById('placeNotes'),
+        placeSource: document.getElementById('placeSource'),
+        placeLastChecked: document.getElementById('placeLastChecked'),
+        btnSetDateToday: document.getElementById('btnSetDateToday'),
+        placeSourceDetail: document.getElementById('placeSourceDetail'),
+
+        modalDataStorage: document.getElementById('modalDataStorage'),
+        modalDataTitle: document.getElementById('modalDataTitle'),
+        btnCloseDataModal: document.getElementById('btnCloseDataModal'),
+        btnCloseDataFooter: document.getElementById('btnCloseDataFooter'),
+        btnResetDemoData: document.getElementById('btnResetDemoData'),
+        btnExportJson: document.getElementById('btnExportJson'),
+        inputImportJson: document.getElementById('inputImportJson'),
+        btnClearAllRecords: document.getElementById('btnClearAllRecords')
+      };
+
+      function calculateDaysAgo(dateString) {
+        if (!dateString) return Infinity;
+        const checkDate = new Date(dateString + 'T00:00:00');
+        const now = new Date();
+        const diffMs = now - checkDate;
+        return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      }
+
+      function isRecordStale(place) {
+        const days = calculateDaysAgo(place.lastCheckedDate);
+        return days > CONFIG.staleThresholdDays;
+      }
+
+      function hasUnknownFeatures(place) {
+        if (!place.features) return true;
+        const f = place.features;
+        return (
+          (f.stepFreeEntrance && f.stepFreeEntrance.status === 'unknown') ||
+          (f.accessibleToilet && f.accessibleToilet.status === 'unknown') ||
+          (f.accessibleSeating && f.accessibleSeating.status === 'unknown')
+        );
+      }
+
+      function areAllFeaturesPresent(place) {
+        if (!place.features) return false;
+        const f = place.features;
+        return (
+          f.stepFreeEntrance && f.stepFreeEntrance.status === 'present' &&
+          f.accessibleToilet && f.accessibleToilet.status === 'present' &&
+          f.accessibleSeating && f.accessibleSeating.status === 'present'
+        );
+      }
+
+      function escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function loadPlaces() {
+        try {
+          const raw = localStorage.getItem(CONFIG.storageKey);
+          if (!raw) {
+            savePlaces(CONFIG.defaultDemoPlaces);
+            return JSON.parse(JSON.stringify(CONFIG.defaultDemoPlaces));
+          }
+          const parsed = JSON.parse(raw);
+          if (!Array.isArray(parsed)) {
+            console.warn('Invalid data found in localStorage. Restoring default demo set.');
+            savePlaces(CONFIG.defaultDemoPlaces);
+            return JSON.parse(JSON.stringify(CONFIG.defaultDemoPlaces));
+          }
+          return parsed;
+        } catch (err) {
+          console.error('Failed reading localStorage places:', err);
+          savePlaces(CONFIG.defaultDemoPlaces);
+          return JSON.parse(JSON.stringify(CONFIG.defaultDemoPlaces));
+        }
+      }
+
+      function savePlaces(places) {
+        try {
+          localStorage.setItem(CONFIG.storageKey, JSON.stringify(places));
+        } catch (err) {
+          console.error('Failed saving places to localStorage:', err);
+          alert('Warning: LocalStorage write failed.');
+        }
+      }
+
+      function loadTheme() {
+        try {
+          const theme = localStorage.getItem(CONFIG.themeKey) || 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      }
+
+      function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try {
+          localStorage.setItem(CONFIG.themeKey, next);
+        } catch (e) {}
+      }
+
+      function updateMetrics() {
+        const places = state.places;
+        let unknownCount = 0;
+        let staleCount = 0;
+        let firstHandCount = 0;
+
+        places.forEach(p => {
+          if (hasUnknownFeatures(p)) unknownCount++;
+          if (isRecordStale(p)) staleCount++;
+          if (p.source === 'First-hand observation') firstHandCount++;
+        });
+
+        if (DOM.metricTotalPlaces) DOM.metricTotalPlaces.textContent = places.length;
+        if (DOM.metricUnknownCount) DOM.metricUnknownCount.textContent = unknownCount;
+        if (DOM.metricStaleCount) DOM.metricStaleCount.textContent = staleCount;
+        if (DOM.metricFirstHandCount) DOM.metricFirstHandCount.textContent = firstHandCount;
+      }
+
+      function getFilteredPlaces() {
+        const q = state.filters.search.trim().toLowerCase();
+        const type = state.filters.type;
+        const stepFree = state.filters.stepFree;
+        const toilet = state.filters.toilet;
+        const seating = state.filters.seating;
+        const shortcut = state.filters.shortcut;
+
+        return state.places.filter(p => {
+          if (q) {
+            const f = p.features || {};
+            const haystack = [
+              p.name,
+              p.type,
+              p.address,
+              p.notes,
+              p.source,
+              p.sourceDetail,
+              f.stepFreeEntrance?.details,
+              f.accessibleToilet?.details,
+              f.accessibleSeating?.details
+            ].filter(Boolean).join(' ').toLowerCase();
+
+            if (!haystack.includes(q)) return false;
+          }
+
+          if (type !== 'all' && p.type !== type) return false;
+
+          if (stepFree !== 'all') {
+            const status = p.features?.stepFreeEntrance?.status || 'unknown';
+            if (status !== stepFree) return false;
+          }
+
+          if (toilet !== 'all') {
+            const status = p.features?.accessibleToilet?.status || 'unknown';
+            if (status !== toilet) return false;
+          }
+
+          if (seating !== 'all') {
+            const status = p.features?.accessibleSeating?.status || 'unknown';
+            if (status !== seating) return false;
+          }
+
+          if (shortcut === 'needsSurvey' && !hasUnknownFeatures(p)) return false;
+          if (shortcut === 'stale' && !isRecordStale(p)) return false;
+          if (shortcut === 'firstHand' && p.source !== 'First-hand observation') return false;
+          if (shortcut === 'allPresent' && !areAllFeaturesPresent(p)) return false;
+
+          return true;
+        });
+      }
+
+      function formatStatusPill(status) {
+        if (status === 'present') {
+          return '<span class="status-pill status-present"><span class="dot" aria-hidden="true"></span>Present</span>';
+        } else if (status === 'not_present') {
+          return '<span class="status-pill status-not_present"><span class="dot" aria-hidden="true"></span>Not Present</span>';
+        }
+        return '<span class="status-pill status-unknown"><span class="dot" aria-hidden="true"></span>Unknown</span>';
+      }
+
+      // keep old name so test-runner still works
+      function formatStatusBadge(status) { return formatStatusPill(status); }
+
+      function renderDirectory() {
+        const filtered = getFilteredPlaces();
+
+        if (DOM.directoryResultsCount) {
+          DOM.directoryResultsCount.textContent = `${filtered.length} of ${state.places.length} records`;
+        }
+
+        if (filtered.length === 0) {
+          if (DOM.placesGrid) DOM.placesGrid.innerHTML = '';
+          if (DOM.emptyStateBox) DOM.emptyStateBox.classList.remove('hidden');
+          return;
+        }
+
+        if (DOM.emptyStateBox) DOM.emptyStateBox.classList.add('hidden');
+
+        const html = filtered.map(place => {
+          const daysAgo = calculateDaysAgo(place.lastCheckedDate);
+          const stale = daysAgo > CONFIG.staleThresholdDays;
+          const f = place.features || {};
+
+          const entranceStatus = f.stepFreeEntrance ? f.stepFreeEntrance.status : 'unknown';
+          const toiletStatus   = f.accessibleToilet  ? f.accessibleToilet.status  : 'unknown';
+          const seatingStatus  = f.accessibleSeating  ? f.accessibleSeating.status  : 'unknown';
+
+          const entranceDetail = f.stepFreeEntrance?.details || '';
+          const toiletDetail   = f.accessibleToilet?.details   || '';
+          const seatingDetail  = f.accessibleSeating?.details  || '';
+
+          const dateLabel = daysAgo === 0 ? 'Today' : daysAgo === 1 ? 'Yesterday' : `${daysAgo} days ago`;
+
+          return `
+            <article class="place-card" data-id="${escapeHtml(place.id)}">
+              <div class="card-head">
+                <div class="card-top-row">
+                  <span class="type-badge">${escapeHtml(place.type)}</span>
+                  ${place.isDemo ? '<span class="demo-badge">Demo Data</span>' : ''}
+                </div>
+                <h3 class="card-name">${escapeHtml(place.name)}</h3>
+                <div class="card-address" title="${escapeHtml(place.address)}">📍 ${escapeHtml(place.address)}</div>
+              </div>
+
+              <div class="features-list">
+                <div class="feature-row">
+                  <span class="feature-icon" aria-hidden="true">♿</span>
+                  <div class="feature-body">
+                    <div class="feature-name">Entrance</div>
+                    ${formatStatusPill(entranceStatus)}
+                    ${entranceDetail ? `<div class="feature-detail" title="${escapeHtml(entranceDetail)}">${escapeHtml(entranceDetail)}</div>` : ''}
+                  </div>
+                </div>
+                <div class="feature-row">
+                  <span class="feature-icon" aria-hidden="true">🚻</span>
+                  <div class="feature-body">
+                    <div class="feature-name">Toilet</div>
+                    ${formatStatusPill(toiletStatus)}
+                    ${toiletDetail ? `<div class="feature-detail" title="${escapeHtml(toiletDetail)}">${escapeHtml(toiletDetail)}</div>` : ''}
+                  </div>
+                </div>
+                <div class="feature-row">
+                  <span class="feature-icon" aria-hidden="true">🪑</span>
+                  <div class="feature-body">
+                    <div class="feature-name">Seating</div>
+                    ${formatStatusPill(seatingStatus)}
+                    ${seatingDetail ? `<div class="feature-detail" title="${escapeHtml(seatingDetail)}">${escapeHtml(seatingDetail)}</div>` : ''}
+                  </div>
+                </div>
+              </div>
+
+              ${place.notes ? `<div class="card-notes">"${escapeHtml(place.notes)}"</div>` : ''}
+
+              <div class="card-footer">
+                <div class="card-meta">
+                  <span class="meta-source">${escapeHtml(place.source)}</span>
+                  <span class="meta-date">
+                    ${stale
+                      ? `<span class="stale-tag">⚠ ${dateLabel} — stale</span>`
+                      : dateLabel
+                    }
+                  </span>
+                </div>
+                <div class="card-actions">
+                  <button type="button" class="btn btn-outline btn-sm btn-edit-place" data-id="${escapeHtml(place.id)}">
+                    Edit
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm btn-delete-place" data-id="${escapeHtml(place.id)}" title="Delete record" aria-label="Delete ${escapeHtml(place.name)}">
+                    ✕
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        if (DOM.placesGrid) {
+          DOM.placesGrid.innerHTML = html;
+        }
+
+        DOM.placesGrid.querySelectorAll('.btn-edit-place').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.currentTarget.getAttribute('data-id');
+            openEditPlaceModal(id);
+          });
+        });
+
+        DOM.placesGrid.querySelectorAll('.btn-delete-place').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = e.currentTarget.getAttribute('data-id');
+            deletePlace(id);
+          });
+        });
+      }
+
+      function openModal(modalEl) {
+        if (!modalEl) return;
+        modalEl.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal(modalEl) {
+        if (!modalEl) return;
+        modalEl.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function setRadioVal(name, value) {
+        const radios = document.getElementsByName(name);
+        for (let r of radios) {
+          if (r.value === value) { r.checked = true; break; }
+        }
+      }
+
+      function getRadioVal(name) {
+        const radios = document.getElementsByName(name);
+        for (let r of radios) {
+          if (r.checked) return r.value;
+        }
+        return 'unknown';
+      }
+
+      function openAddPlaceModal() {
+        if (DOM.placeFormErrors) DOM.placeFormErrors.classList.remove('visible');
+        if (DOM.modalPlaceTitle) DOM.modalPlaceTitle.textContent = 'Record Place';
+        if (DOM.placeEditId) DOM.placeEditId.value = '';
+        if (DOM.formPlace) DOM.formPlace.reset();
+
+        setRadioVal('featureStepFree', 'unknown');
+        setRadioVal('featureToilet', 'unknown');
+        setRadioVal('featureSeating', 'unknown');
+
+        if (DOM.placeLastChecked) {
+          DOM.placeLastChecked.value = new Date().toISOString().slice(0, 10);
+        }
+        if (DOM.placeSource) {
+          DOM.placeSource.value = 'First-hand observation';
+        }
+
+        openModal(DOM.modalPlaceForm);
+      }
+
+      function openEditPlaceModal(id) {
+        const place = state.places.find(p => p.id === id);
+        if (!place) return;
+
+        if (DOM.placeFormErrors) DOM.placeFormErrors.classList.remove('visible');
+        if (DOM.modalPlaceTitle) DOM.modalPlaceTitle.textContent = `Edit: ${place.name}`;
+        if (DOM.placeEditId) DOM.placeEditId.value = place.id;
+
+        if (DOM.placeName) DOM.placeName.value = place.name;
+        if (DOM.placeType) DOM.placeType.value = place.type;
+        if (DOM.placeAddress) DOM.placeAddress.value = place.address;
+
+        const f = place.features || {};
+        setRadioVal('featureStepFree', f.stepFreeEntrance ? f.stepFreeEntrance.status : 'unknown');
+        if (DOM.stepFreeDetails) DOM.stepFreeDetails.value = f.stepFreeEntrance?.details || '';
+
+        setRadioVal('featureToilet', f.accessibleToilet ? f.accessibleToilet.status : 'unknown');
+        if (DOM.toiletDetails) DOM.toiletDetails.value = f.accessibleToilet?.details || '';
+
+        setRadioVal('featureSeating', f.accessibleSeating ? f.accessibleSeating.status : 'unknown');
+        if (DOM.seatingDetails) DOM.seatingDetails.value = f.accessibleSeating?.details || '';
+
+        if (DOM.placeNotes) DOM.placeNotes.value = place.notes || '';
+        if (DOM.placeSource) DOM.placeSource.value = place.source || 'First-hand observation';
+        if (DOM.placeLastChecked) DOM.placeLastChecked.value = place.lastCheckedDate || new Date().toISOString().slice(0, 10);
+        if (DOM.placeSourceDetail) DOM.placeSourceDetail.value = place.sourceDetail || '';
+
+        openModal(DOM.modalPlaceForm);
+      }
+
+      function handlePlaceFormSubmit(e) {
+        e.preventDefault();
+        const errors = [];
+
+        const name        = DOM.placeName.value.trim();
+        const type        = DOM.placeType.value;
+        const address     = DOM.placeAddress.value.trim();
+        const lastChecked = DOM.placeLastChecked.value;
+        const source      = DOM.placeSource.value;
+
+        if (!name)        errors.push('Name is required.');
+        if (!type)        errors.push('Type is required.');
+        if (!address)     errors.push('Address is required.');
+        if (!lastChecked) errors.push('Last-checked date is required.');
+        if (!source)      errors.push('Source is required.');
+
+        if (errors.length > 0) {
+          if (DOM.placeFormErrors) {
+            DOM.placeFormErrors.innerHTML = errors.map(err => `<div>• ${escapeHtml(err)}</div>`).join('');
+            DOM.placeFormErrors.classList.add('visible');
+          }
+          return;
+        }
+
+        const editId = DOM.placeEditId.value;
+        const features = {
+          stepFreeEntrance: {
+            status:  getRadioVal('featureStepFree'),
+            details: DOM.stepFreeDetails.value.trim()
+          },
+          accessibleToilet: {
+            status:  getRadioVal('featureToilet'),
+            details: DOM.toiletDetails.value.trim()
+          },
+          accessibleSeating: {
+            status:  getRadioVal('featureSeating'),
+            details: DOM.seatingDetails.value.trim()
+          }
+        };
+
+        if (editId) {
+          const place = state.places.find(p => p.id === editId);
+          if (place) {
+            place.name           = name;
+            place.type           = type;
+            place.address        = address;
+            place.features       = features;
+            place.notes          = DOM.placeNotes.value.trim();
+            place.source         = source;
+            place.lastCheckedDate= lastChecked;
+            place.sourceDetail   = DOM.placeSourceDetail.value.trim();
+            place.updatedAt      = new Date().toISOString();
+          }
+        } else {
+          const newId = 'AL-' + Math.floor(100 + Math.random() * 900);
+          const newPlace = {
+            id:              newId,
+            isDemo:          false,
+            name:            name,
+            type:            type,
+            address:         address,
+            features:        features,
+            notes:           DOM.placeNotes.value.trim(),
+            source:          source,
+            lastCheckedDate: lastChecked,
+            sourceDetail:    DOM.placeSourceDetail.value.trim(),
+            createdAt:       new Date().toISOString(),
+            updatedAt:       new Date().toISOString()
+          };
+          state.places.unshift(newPlace);
+        }
+
+        savePlaces(state.places);
+        updateMetrics();
+        renderDirectory();
+        closeModal(DOM.modalPlaceForm);
+      }
+
+      function deletePlace(id) {
+        const place = state.places.find(p => p.id === id);
+        if (!place) return;
+        if (!confirm(`Delete "${place.name}"?`)) return;
+        state.places = state.places.filter(p => p.id !== id);
+        savePlaces(state.places);
+        updateMetrics();
+        renderDirectory();
+      }
+
+      function resetDemoData() {
+        if (!confirm('Reset directory to demo dataset?')) return;
+        state.places = JSON.parse(JSON.stringify(CONFIG.defaultDemoPlaces));
+        savePlaces(state.places);
+        updateMetrics();
+        renderDirectory();
+        closeModal(DOM.modalDataStorage);
+      }
+
+      function clearAllRecords() {
+        if (!confirm('Clear all local records?')) return;
+        state.places = [];
+        savePlaces(state.places);
+        updateMetrics();
+        renderDirectory();
+        closeModal(DOM.modalDataStorage);
+      }
+
+      function exportJsonBackup() {
+        const payload = {
+          app: 'AccessLens',
+          version: '1.0.0',
+          exportedAt: new Date().toISOString(),
+          recordCount: state.places.length,
+          places: state.places
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `accesslens-${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function handleImportJson(e) {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const data = JSON.parse(event.target.result);
+            let imported = [];
+            if (Array.isArray(data)) {
+              imported = data;
+            } else if (data && Array.isArray(data.places)) {
+              imported = data.places;
+            } else {
+              throw new Error('Invalid format');
+            }
+            state.places = imported;
+            savePlaces(state.places);
+            updateMetrics();
+            renderDirectory();
+            closeModal(DOM.modalDataStorage);
+          } catch (err) {
+            alert('Import error: ' + err.message);
+          } finally {
+            e.target.value = '';
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      function setShortcut(shortcutKey) {
+        const isCurrent = state.filters.shortcut === shortcutKey;
+        state.filters.shortcut = isCurrent ? null : shortcutKey;
+
+        [
+          DOM.shortcutNeedsSurvey,
+          DOM.shortcutStale,
+          DOM.shortcutFirstHand,
+          DOM.shortcutAllPresent
+        ].forEach(chip => {
+          if (chip) chip.classList.remove('active');
+        });
+
+        if (state.filters.shortcut) {
+          if (shortcutKey === 'needsSurvey' && DOM.shortcutNeedsSurvey) DOM.shortcutNeedsSurvey.classList.add('active');
+          if (shortcutKey === 'stale'       && DOM.shortcutStale)       DOM.shortcutStale.classList.add('active');
+          if (shortcutKey === 'firstHand'   && DOM.shortcutFirstHand)   DOM.shortcutFirstHand.classList.add('active');
+          if (shortcutKey === 'allPresent'  && DOM.shortcutAllPresent)  DOM.shortcutAllPresent.classList.add('active');
+        }
+
+        renderDirectory();
+      }
+
+      function initEventListeners() {
+        if (DOM.btnThemeToggle) DOM.btnThemeToggle.addEventListener('click', toggleTheme);
+
+        if (DOM.filterSearch) {
+          DOM.filterSearch.addEventListener('input', (e) => {
+            state.filters.search = e.target.value;
+            renderDirectory();
+          });
+        }
+        if (DOM.filterType) {
+          DOM.filterType.addEventListener('change', (e) => {
+            state.filters.type = e.target.value;
+            renderDirectory();
+          });
+        }
+        if (DOM.filterStepFree) {
+          DOM.filterStepFree.addEventListener('change', (e) => {
+            state.filters.stepFree = e.target.value;
+            renderDirectory();
+          });
+        }
+        if (DOM.filterToilet) {
+          DOM.filterToilet.addEventListener('change', (e) => {
+            state.filters.toilet = e.target.value;
+            renderDirectory();
+          });
+        }
+        if (DOM.filterSeating) {
+          DOM.filterSeating.addEventListener('change', (e) => {
+            state.filters.seating = e.target.value;
+            renderDirectory();
+          });
+        }
+        if (DOM.btnResetFilters) {
+          DOM.btnResetFilters.addEventListener('click', () => {
+            state.filters = { search: '', type: 'all', stepFree: 'all', toilet: 'all', seating: 'all', shortcut: null };
+            if (DOM.filterSearch)   DOM.filterSearch.value   = '';
+            if (DOM.filterType)     DOM.filterType.value     = 'all';
+            if (DOM.filterStepFree) DOM.filterStepFree.value = 'all';
+            if (DOM.filterToilet)   DOM.filterToilet.value   = 'all';
+            if (DOM.filterSeating)  DOM.filterSeating.value  = 'all';
+            [DOM.shortcutNeedsSurvey, DOM.shortcutStale, DOM.shortcutFirstHand, DOM.shortcutAllPresent].forEach(c => c && c.classList.remove('active'));
+            renderDirectory();
+          });
+        }
+
+        if (DOM.shortcutNeedsSurvey) DOM.shortcutNeedsSurvey.addEventListener('click', () => setShortcut('needsSurvey'));
+        if (DOM.shortcutStale)       DOM.shortcutStale.addEventListener('click',       () => setShortcut('stale'));
+        if (DOM.shortcutFirstHand)   DOM.shortcutFirstHand.addEventListener('click',   () => setShortcut('firstHand'));
+        if (DOM.shortcutAllPresent)  DOM.shortcutAllPresent.addEventListener('click',  () => setShortcut('allPresent'));
+
+        if (DOM.btnOpenAddPlace)    DOM.btnOpenAddPlace.addEventListener('click', openAddPlaceModal);
+        if (DOM.btnEmptyAdd)        DOM.btnEmptyAdd.addEventListener('click', openAddPlaceModal);
+        if (DOM.btnClosePlaceModal) DOM.btnClosePlaceModal.addEventListener('click', () => closeModal(DOM.modalPlaceForm));
+        if (DOM.btnCancelPlaceForm) DOM.btnCancelPlaceForm.addEventListener('click', () => closeModal(DOM.modalPlaceForm));
+        if (DOM.formPlace)          DOM.formPlace.addEventListener('submit', handlePlaceFormSubmit);
+
+        if (DOM.btnSetDateToday) {
+          DOM.btnSetDateToday.addEventListener('click', () => {
+            if (DOM.placeLastChecked) DOM.placeLastChecked.value = new Date().toISOString().slice(0, 10);
+          });
+        }
+
+        if (DOM.btnOpenDataModal)   DOM.btnOpenDataModal.addEventListener('click', () => openModal(DOM.modalDataStorage));
+        if (DOM.btnCloseDataModal)  DOM.btnCloseDataModal.addEventListener('click', () => closeModal(DOM.modalDataStorage));
+        if (DOM.btnCloseDataFooter) DOM.btnCloseDataFooter.addEventListener('click', () => closeModal(DOM.modalDataStorage));
+        if (DOM.btnResetDemoData)   DOM.btnResetDemoData.addEventListener('click', resetDemoData);
+        if (DOM.btnClearAllRecords) DOM.btnClearAllRecords.addEventListener('click', clearAllRecords);
+        if (DOM.btnExportJson)      DOM.btnExportJson.addEventListener('click', exportJsonBackup);
+        if (DOM.inputImportJson)    DOM.inputImportJson.addEventListener('change', handleImportJson);
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            closeModal(DOM.modalPlaceForm);
+            closeModal(DOM.modalDataStorage);
+          }
+        });
+
+        [DOM.modalPlaceForm, DOM.modalDataStorage].forEach(modal => {
+          if (modal) {
+            modal.addEventListener('click', (e) => {
+              if (e.target === modal) closeModal(modal);
+            });
+          }
+        });
+      }
+
+      function initApp() {
+        loadTheme();
+        state.places = loadPlaces();
+        initEventListeners();
+        updateMetrics();
+        renderDirectory();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApp);
+      } else {
+        initApp();
+      }
+
+      window.__ACCESSLENS_TEST_API__ = {
+        CONFIG: CONFIG,
+        getState: () => state,
+        setState: (newState) => { state = Object.assign(state, newState); },
+        loadPlaces: loadPlaces,
+        savePlaces: savePlaces,
+        resetDemoData: resetDemoData,
+        updateMetrics: updateMetrics,
+        renderDirectory: renderDirectory,
+        getFilteredPlaces: getFilteredPlaces,
+        calculateDaysAgo: calculateDaysAgo,
+        isRecordStale: isRecordStale,
+        hasUnknownFeatures: hasUnknownFeatures,
+        areAllFeaturesPresent: areAllFeaturesPresent,
+        escapeHtml: escapeHtml,
+        formatStatusBadge: formatStatusBadge
+      };
+    })();
+  </script>
+</body>
+</html>
